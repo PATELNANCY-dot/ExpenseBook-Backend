@@ -1,13 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using ExpenseTracker.Data;
 
-var builder = WebApplication.CreateBuilder(args);
 
-// ================================
-// RENDER PORT BINDING
-// ================================
-var port = Environment.GetEnvironmentVariable("PORT") ?? "10000";
-builder.WebHost.UseUrls($"http://0.0.0.0:{port}");
+var builder = WebApplication.CreateBuilder(args);
 
 // ================================
 // SERVICES
@@ -27,10 +22,10 @@ if (string.IsNullOrEmpty(conn))
 Console.WriteLine("DB connection loaded");
 
 // ================================
-// DATABASE (PostgreSQL)
+// DATABASE (MSSQL  FIXED)
 // ================================
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseNpgsql(conn));
+    options.UseSqlServer(conn));   //  CHANGED HERE
 
 // ================================
 // CORS
@@ -63,11 +58,10 @@ app.UseRouting();
 
 app.UseCors("AllowAngular");
 
-// Swagger enabled for production also
+// Swagger (enabled always)
 app.UseSwagger();
 app.UseSwaggerUI();
 
-// Authorization
 app.UseAuthorization();
 
 // ================================

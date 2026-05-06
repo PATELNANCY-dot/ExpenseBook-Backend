@@ -1,11 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Text.Json.Serialization;
 
-namespace ExpenseTracker.Models
+public class ChangePasswordDto
 {
-    public class ChangePasswordDto
-    {
-        public int Id { get; set; }
-        public string CurrentPassword { get; set; }
-        public string NewPassword { get; set; }
-    }
+    public long Id { get; set; }
+
+    [JsonPropertyName("currentPassword")]
+    public string CurrentPassword { get; set; }
+
+    [JsonPropertyName("newPassword")]
+    public string NewPassword { get; set; }
 }
